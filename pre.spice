@@ -1,8 +1,8 @@
-Inverter Simulation
+NOR Simulation
 * this file edited to remove everything not in tt lib
 .lib "./sky130_fd_pr/models/sky130.lib.spice" tt
 
-* instantiate the inverter
-Xinv Y A VPWR VGND VGND VPWR inverter
+* instantiate the nor
+Xnor X A B VPWR VGND VGND VPWR nor
 
-.subckt inverter Y A NWELL VSUBS VGND VPWR
+.subckt nor X A B NWELL VSUBS VGND VPWR

@@ -1,18 +1,42 @@
-Inverter Simulation
+NOR Simulation
 * this file edited to remove everything not in tt lib
 .lib "./sky130_fd_pr/models/sky130.lib.spice" tt
 
-* instantiate the inverter
-Xinv Y A VPWR VGND VGND VPWR inverter
+* instantiate the nor
+Xnor X A B VPWR VGND VGND VPWR nor
 
-.subckt inverter Y A NWELL VSUBS VGND VPWR
-* NGSPICE file created from inverter.ext - technology: sky130A
+.subckt nor X A B NWELL VSUBS VGND VPWR
+* NGSPICE file created from test.ext - technology: sky130A
 
 
-* Top level circuit inverter
-
-X0 Y A VPWR NWELL sky130_fd_pr__pfet_01v8 w=1e+06u l=150000u
-X1 Y A VGND VSUBS sky130_fd_pr__nfet_01v8 w=650000u l=150000u
+X0 VGND B X VSUBS sky130_fd_pr__nfet_01v8 ad=0.325 pd=2.3 as=0.211 ps=1.3 w=0.65 l=0.15
+X1 X A VGND VSUBS sky130_fd_pr__nfet_01v8 ad=0.211 pd=1.3 as=0.325 ps=2.3 w=0.65 l=0.15
+X2 X B a_150_0# NWELL sky130_fd_pr__pfet_01v8 ad=0.5 pd=3 as=0.325 ps=1.65 w=1 l=0.15
+X3 a_150_0# A VPWR NWELL sky130_fd_pr__pfet_01v8 ad=0.325 pd=1.65 as=0.5 ps=3 w=1 l=0.15
+C0 A NWELL 0.0544f
+C1 B VPWR 0.0114f
+C2 A X 0.0517f
+C3 X a_150_0# 0.0325f
+C4 A VGND 0.0577f
+C5 VGND a_150_0# 0.00196f
+C6 A VPWR 0.0468f
+C7 NWELL X 0.04f
+C8 VPWR a_150_0# 0.00848f
+C9 VGND NWELL 0.0104f
+C10 NWELL VPWR 0.0677f
+C11 A B 0.032f
+C12 VGND X 0.128f
+C13 VPWR X 0.232f
+C14 VGND VPWR 0.0532f
+C15 NWELL B 0.0533f
+C16 B X 0.0915f
+C17 VGND B 0.0518f
+C18 VGND VSUBS 0.491f
+C19 X VSUBS 0.106f
+C20 VPWR VSUBS 0.373f
+C21 B VSUBS 0.223f
+C22 A VSUBS 0.231f
+C23 NWELL VSUBS 0.576f
 
 
 .ends
@@ -22,14 +46,15 @@ Vgnd VGND 0 0
 Vdd VPWR VGND 1.8
 
 * create pulse
-Vin A VGND pulse(0 1.8 1p 10p 10p 1n 2n)
+Va A VGND pulse(0 1.8 1p 10p 10p 1n 2n)
+Vb B VGND pulse(0 1.8 500p 10p 10p 1n 2n)
 .tran 10e-12 2e-09 0e-00
 
 .control
 run
 set color0 = white
 set color1 = black
-plot A Y
+plot A B X
 plot i(Vdd)
 .endc
 

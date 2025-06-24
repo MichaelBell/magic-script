@@ -1,8 +1,9 @@
-NAME=inverter
+NAME=nor
 
 all: sim
 
 magic:
+	python magic.py
 	# PDK_ROOT env var must be set correctly for this to work
 	magic -rcfile $(PDK_ROOT)/sky130A/libs.tech/magic/sky130A.magicrc $(NAME).mag
 	# now in the command window type:
@@ -14,7 +15,7 @@ magic:
 simulation.spice: pre.spice $(NAME).spice post.spice
     # magic puts subckt and end around extract, so remove it
 	sed -i -e 's/.ends//' $(NAME).spice
-	sed -i -e 's/.subckt inverter//' $(NAME).spice
+	sed -i -e 's/.subckt nor//' $(NAME).spice
 	# build a simulation with pre and post.spice
 	cat $^ > $@
 
