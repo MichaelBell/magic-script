@@ -3,6 +3,6 @@ NOR Simulation
 .lib "./sky130_fd_pr/models/sky130.lib.spice" tt
 
 * instantiate the nor
-Xnor X A B VPWR VGND VGND VPWR nor
+Xand X A B VPWR VGND VGND VPWR nor
 
 .subckt nor X A B NWELL VSUBS VGND VPWR

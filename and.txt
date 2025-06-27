@@ -1,0 +1,6 @@
+
+
+B -> P(~A) -> 1 if A and B
+
+- -> N(~A) -> 0 if ~A
+B -> N(A) -> 0 if A and ~B

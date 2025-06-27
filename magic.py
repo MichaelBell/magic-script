@@ -102,9 +102,9 @@ class MagicCell:
         self.nmos.append(Rect(x, self.poly_min+20, 15, self.nmos_h))
         self.pmos.append(Rect(x, 0, 15, self.pmos_h))
         if add_pdiff:
-            self.pdiff.append(Rect(x-50, 0, 115, self.pmos_h))
+            self.pdiff.append(Rect(x-32, 0, 79, self.pmos_h))
         if add_ndiff:
-            self.ndiff.append(Rect(x-50, self.poly_min+20, 115, self.nmos_h))
+            self.ndiff.append(Rect(x-32, self.poly_min+20, 79, self.nmos_h))
 
 if __name__ == "__main__":
     mag = MagicCell(120, -220, 240)
