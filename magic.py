@@ -13,6 +13,26 @@ class Rect:
         r.ty = self.ty + amount
         return r
 
+def abs_rect(x, y, tx, ty):
+    r = Rect(x, y)
+    r.tx = tx
+    r.ty = ty
+    return r
+
+def line_h(x, y, len, width):
+    half_width = (width + 1) // 2
+    return Rect(x, y - half_width, len, width)
+
+def line_v(x, y, len, width):
+    half_width = (width + 1) // 2
+    return Rect(x - half_width, y, width, len)
+
+POLY_WIDTH = 15
+LOCALI_WIDTH = 17
+METAL1_WIDTH = 14
+VIA_WIDTH = 15
+CONTACT_WIDTH = 17
+
 class Label:
     def __init__(self, layer, r, name):
         self.layer = layer
@@ -33,17 +53,20 @@ class MagicCell:
         self.locali = []
         self.viali = []
         self.metal1 = []
+        self.via1 = []
+        self.metal2 = []
         self.labels = []
 
-        self.metal1.append(Rect(-30, pwr_y-20, width+60, 70))
-        self.metal1.append(Rect(-30, gnd_y-20, width+60, 70))
-        self.locali.append(Rect(0, pwr_y, width, 30))
-        self.locali.append(Rect(0, gnd_y, width, 30))
-        for x in range(0, width, spacing):
-            self.viali.append(Rect(x, pwr_y, 30, 30))
-            self.viali.append(Rect(x, gnd_y, 30, 30))
-        self.labels.append(Label("metal1", Rect(0, pwr_y, width, 30), "VPWR"))
-        self.labels.append(Label("metal1", Rect(0, gnd_y, width, 30), "VGND"))
+        if spacing != 0:
+            self.metal1.append(Rect(-30, pwr_y-20, width+60, 70))
+            self.metal1.append(Rect(-30, gnd_y-20, width+60, 70))
+            self.locali.append(Rect(0, pwr_y, width, 30))
+            self.locali.append(Rect(0, gnd_y, width, 30))
+            for x in range(0, width, spacing):
+                self.viali.append(Rect(x, pwr_y, 30, 30))
+                self.viali.append(Rect(x, gnd_y, 30, 30))
+            self.labels.append(Label("metal1", Rect(0, pwr_y, width, 30), "VPWR"))
+            self.labels.append(Label("metal1", Rect(0, gnd_y, width, 30), "VGND"))
 
         self.poly_min = gnd_y + 40
         self.nmos_h = 65
@@ -88,23 +111,33 @@ class MagicCell:
         fprint_rects(self.viali)
         fprint("<< metal1 >>")
         fprint_rects(self.metal1)
+        fprint("<< via1 >>")
+        fprint_rects(self.via1)
+        fprint("<< metal2 >>")
+        fprint_rects(self.metal2)
 
         fprint("<< labels >>")
         for l in self.labels:
             fprint(f"rlabel {l.layer} {l.r.x} {l.r.y} {l.r.tx} {l.r.ty} 1 {l.name}")
         fprint("<< name >>")
 
-    def make_cmos(self, x, contact_rect, add_pdiff=True, add_ndiff=True):
+    def make_cmos(self, x, contact_rect, add_pdiff=True, add_ndiff=True, li_rect=None):
         self.poly.append(Rect(x, self.poly_min, 15, self.poly_h))
-        self.poly.append(contact_rect.expanded_by(10))
-        self.polycont.append(contact_rect)
-        self.locali.append(contact_rect.expanded_by(10))
+        if contact_rect is not None:
+            poly_rect = Rect(contact_rect.x - 10, contact_rect.y - 5)
+            poly_rect.tx = contact_rect.tx + 10
+            poly_rect.ty = contact_rect.ty + 5
+            self.poly.append(poly_rect)
+            self.polycont.append(contact_rect)
+            if li_rect is None:
+                li_rect = contact_rect.expanded_by(8)
+            self.locali.append(li_rect)
         self.nmos.append(Rect(x, self.poly_min+20, 15, self.nmos_h))
         self.pmos.append(Rect(x, 0, 15, self.pmos_h))
         if add_pdiff:
-            self.pdiff.append(Rect(x-32, 0, 79, self.pmos_h))
+            self.pdiff.append(Rect(x-29, 0, 73, self.pmos_h))
         if add_ndiff:
-            self.ndiff.append(Rect(x-32, self.poly_min+20, 79, self.nmos_h))
+            self.ndiff.append(Rect(x-29, self.poly_min+20, 73, self.nmos_h))
 
 if __name__ == "__main__":
     mag = MagicCell(120, -220, 240)
