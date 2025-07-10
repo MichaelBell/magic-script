@@ -1,9 +1,11 @@
-NAME=ha
+NAME ?= ha
 
 all: sim
 
-magic:
-	python $(NAME).py
+%.mag: %.py magic.py
+	python $<
+
+magic: $(NAME).mag
 	# PDK_ROOT env var must be set correctly for this to work
 	magic -rcfile $(PDK_ROOT)/sky130A/libs.tech/magic/sky130A.magicrc $(NAME).mag
 	# now in the command window type:
@@ -12,10 +14,17 @@ magic:
 	# ext2spice cthresh 0
 	# ext2spice
 
-simulation.spice: pre.spice $(NAME).spice post.spice
+combined: combined.mag ha.mag ha_flip.mag
+	magic -rcfile $(PDK_ROOT)/sky130A/libs.tech/magic/sky130A.magicrc combined.mag
+
+tt_um_flat.spice: combined.mag ha.mag ha_flip.mag
+	magic -rcfile $(PDK_ROOT)/sky130A/libs.tech/magic/sky130A.magicrc -noconsole -dnull ext2spice.tcl
+
+simulation.spice: pre.spice tt_um_flat.spice post.spice
     # magic puts subckt and end around extract, so remove it
-	sed -i -e 's/.ends//' $(NAME).spice
-	sed -i -e 's/.subckt $(NAME)//' $(NAME).spice
+	echo ".lib '$(PDK_ROOT)/sky130A/libs.tech/ngspice/sky130.lib.spice' tt" > pdk_lib.spice
+	#sed -i -e 's/.ends//' tt_um_flat.spice
+	#sed -i -e 's/.subckt tt_um_flat//' tt_um_flat.spice
 	# build a simulation with pre and post.spice
 	cat $^ > $@
 

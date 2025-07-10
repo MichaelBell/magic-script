@@ -4,3 +4,4 @@
 *.mag
 *.nodes
 *.sim
+!combined.mag

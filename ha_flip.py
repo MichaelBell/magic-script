@@ -16,7 +16,7 @@ mag.make_cmos(25, a_contact, li_rect=Rect(82, -49, 36, 33))
 mag.ndiffc.append(Rect(0, -115, 17, 40))  # -
 mag.locali.append(Rect(0, -125, 17, 60))
 mag.viali.append(Rect(0, -115, 17, 40))
-mag.metal1.append(Rect(-3, -121, 83, 52))
+mag.metal1.append(Rect(-3, -121, 53, 52))
 
 mag.ndiffc.append(Rect(48, -110, 17, 40)) # ~A
 
@@ -29,10 +29,11 @@ mag.pdiffc.append(Rect(48, 20, 17, 60))   # ~A
 
 mag.locali.append(Rect(48, -120, 17, 210))
 
-mag.poly.append(Rect(40, -51, spacing-15, 37)) # A
+mag.poly.append(Rect(40, -51, spacing-15, 37))
 mag.viali.append(Rect(82, -41, 17, 17))
-mag.metal1.append(Rect(55, -47, 47, 29))
-mag.metal1.append(Rect(55, -47, 23, 182))
+mag.metal1.append(Rect(65, -47, 37, 29))  # A
+mag.via1.append(Rect(71, -47, 26, 26))
+mag.metal2.append(Rect(65, -47, 306, 26))
 
 mag.make_cmos(25+spacing, None)
 
@@ -41,9 +42,9 @@ mag.locali.append(Rect(0+spacing, -120, 17, 50))
 mag.viali.append(Rect(0+spacing, -110, 17, 30))
 mag.metal1.append(Rect(0+spacing-3, -120, 23, 58))
 mag.ndiffc.append(Rect(48+spacing, -110, 17, 20))  # Co
-mag.locali.append(Rect(48+spacing, -134, 17, 54))
-mag.viali.append(Rect(48+spacing, -134, 17, 34))
-mag.metal1.append(Rect(45+spacing, -147, 23, 53))
+mag.locali.append(Rect(48+spacing, -120, 17, 40))
+mag.viali.append(Rect(48+spacing, -120, 17, 20))
+mag.metal1.append(Rect(45+spacing, -126, 23, 32))
 
 mag.pdiffc.append(Rect(0+spacing, 50, 17, 30))     # B
 mag.locali.append(Rect(0+spacing, 40, 17, 50))
@@ -87,7 +88,7 @@ mag.pmos.append(Rect(225, 0, 15, mag.pmos_h))    # B
 mag.pdiff.append(Rect(225-29, 0, 73, mag.pmos_h))
 
 mag.pdiffc.append(Rect(0+200, 20, 17, 60))     # Co
-mag.locali.append(Rect(0+200, 10, 17, 80))
+mag.locali.append(Rect(0+200, 10, 17, 120))
 mag.viali.append(Rect(0+200, 20, 17, 40))
 mag.metal1.append(Rect(0+200-3, 0, 23, 70))
 mag.pdiffc.append(Rect(48+200, 20, 17, 60))    # B
@@ -119,23 +120,22 @@ mag.locali.append(Rect(348, -120, 17, 59))
 mag.locali.append(Rect(291, -61, 17, 12))
 mag.locali.append(Rect(291, -78, 65, 17))
 
-
 mag.pdiffc.append(Rect(348, 50, 17, 30))    # A
 mag.locali.append(Rect(348, 40, 17, 50))
 mag.viali.append(Rect(348, 50, 17, 30))
-mag.metal1.append(Rect(345, 44, 23, 91))
-
-mag.locali.append(Rect(52, 112, 319, 17))  # A
-mag.viali.append(Rect(58, 112, 17, 17))
-mag.viali.append(Rect(348, 112, 17, 17))
+mag.metal1.append(Rect(342, -53, 26, 53+86))
+mag.via1.append(Rect(342, -47, 26, 26))
 
 mag.via1.append(Rect(97, 6, 26, 26))     # B
 mag.metal2.append(Rect(97, 0, 174, 38))
 mag.via1.append(Rect(245, 6, 26, 26))
 
-mag.via1.append(Rect(50, -115, 26, 30))  # -
-mag.metal2.append(Rect(50, -125, 169, 50))
+mag.via1.append(Rect(20, -115, 26, 30))  # -
+mag.metal2.append(Rect(20, -125, 199, 50))
 mag.via1.append(Rect(193, -115, 26, 30))
+
+mag.metal1.append(Rect(65, -140, 17, 100))
+mag.metal1.append(Rect(65, -155, 103, 15))
 
 #mag.labels.append(Label("metal1", Rect(55, 120, 313, 15), "A"))
 #mag.labels.append(Label("metal2", Rect(97, 0, 174, 38), "B"))
@@ -144,5 +144,5 @@ mag.via1.append(Rect(193, -115, 26, 30))
 #mag.labels.append(Label("metal1", Rect(-3, 14, 23, 72), "VPWR"))
 #mag.labels.append(Label("metal2", Rect(50, -125, 169, 50), "VGND"))
 
-with open("ha.mag", "w") as f:
+with open("ha_flip.mag", "w") as f:
     mag.write(f)

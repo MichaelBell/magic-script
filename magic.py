@@ -42,6 +42,7 @@ class Label:
 class MagicCell:
     def __init__(self, pwr_y, gnd_y, width, spacing=90):
         self.nwell = []
+        self.pwell = []
         self.nmos = []
         self.pmos = []
         self.ndiff = []
@@ -68,14 +69,15 @@ class MagicCell:
             self.labels.append(Label("metal1", Rect(0, pwr_y, width, 30), "VPWR"))
             self.labels.append(Label("metal1", Rect(0, gnd_y, width, 30), "VGND"))
 
-        self.poly_min = gnd_y + 40
+        self.poly_min = gnd_y + 41
         self.nmos_h = 65
-        self.pmos_h = 100 # Pmos y = 0
-        self.poly_h = pwr_y - 5 - self.poly_min
+        self.pmos_h = 95 # Pmos y = 0
+        self.poly_h = pwr_y - 7 - self.poly_min
 
         nwell_r = Rect(-30, -20, width+60, pwr_y+40)
         self.nwell.append(nwell_r)
-        self.labels.append(Label("nwell", nwell_r, "NWELL"))
+        pwell_r = Rect(-20, self.poly_min, width+40, 95)
+        self.pwell.append(pwell_r)
 
     def write(self, file):
         def fprint(s):
@@ -89,6 +91,8 @@ class MagicCell:
         fprint(f"timestamp {int(time.time())}")
         fprint("<< nwell >>")
         fprint_rects(self.nwell)
+        fprint("<< pwell >>")
+        fprint_rects(self.pwell)
         fprint("<< nmos >>")
         fprint_rects(self.nmos)
         fprint("<< pmos >>")
@@ -119,7 +123,7 @@ class MagicCell:
         fprint("<< labels >>")
         for l in self.labels:
             fprint(f"rlabel {l.layer} {l.r.x} {l.r.y} {l.r.tx} {l.r.ty} 1 {l.name}")
-        fprint("<< name >>")
+        fprint("<< end >>")
 
     def make_cmos(self, x, contact_rect, add_pdiff=True, add_ndiff=True, li_rect=None):
         self.poly.append(Rect(x, self.poly_min, 15, self.poly_h))
@@ -132,12 +136,12 @@ class MagicCell:
             if li_rect is None:
                 li_rect = contact_rect.expanded_by(8)
             self.locali.append(li_rect)
-        self.nmos.append(Rect(x, self.poly_min+20, 15, self.nmos_h))
+        self.nmos.append(Rect(x, self.poly_min+14, 15, self.nmos_h))
         self.pmos.append(Rect(x, 0, 15, self.pmos_h))
         if add_pdiff:
             self.pdiff.append(Rect(x-29, 0, 73, self.pmos_h))
         if add_ndiff:
-            self.ndiff.append(Rect(x-29, self.poly_min+20, 73, self.nmos_h))
+            self.ndiff.append(Rect(x-29, self.poly_min+14, 73, self.nmos_h))
 
 if __name__ == "__main__":
     mag = MagicCell(120, -220, 240)
