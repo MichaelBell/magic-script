@@ -1,0 +1,116 @@
+magic
+tech sky130A
+timestamp 1752184986
+<< viali >>
+rect -938 102 -919 146
+rect -938 -158 -919 -124
+rect -938 -438 -919 -394
+<< metal1 >>
+rect -944 93 -915 157
+rect -944 -167 -915 -113
+rect -944 -447 -915 -383
+rect -249 73 -199 123
+rect -249 -133 -199 -83
+rect -249 -471 -199 -421
+<< via1 >>
+rect -944 102 -918 146
+rect -944 -158 -918 -124
+rect -944 -438 -918 -394
+rect -239 83 -209 113
+rect -239 -123 -209 -93
+rect -239 -461 -209 -431
+rect -818 249 -786 281
+rect -518 -21 -486 11
+rect -818 -291 -786 -259
+rect -518 -561 -486 -529
+<< metal2 >>
+rect -944 -447 -910 165
+rect -249 73 -199 123
+rect -249 -133 -199 -83
+rect -249 -471 -199 -421
+rect -830 239 -770 291
+rect -530 -31 -470 21
+rect -830 -301 -770 -249
+rect -530 -571 -470 -519
+<< via2 >>
+rect -239 83 -209 113
+rect -239 -123 -209 -93
+rect -239 -461 -209 -431
+rect -820 249 -780 281
+rect -520 -21 -480 11
+rect -820 -291 -780 -259
+rect -520 -561 -480 -529
+<< metal3 >>
+rect -249 -471 -199 123
+rect -830 239 -770 291
+rect -530 -31 -470 21
+rect -830 -301 -770 -249
+rect -530 -571 -470 -519
+<< via3 >>
+rect -820 249 -780 281
+rect -520 -21 -480 11
+rect -820 -291 -780 -259
+rect -520 -561 -480 -529
+<< metal4 >>
+rect -850 -577 -700 291
+rect -550 -577 -400 291
+use ha  ha_0
+timestamp 1752183583
+transform 1 0 30 0 1 146
+box -30 -167 390 137
+use ha_flip  ha_1
+timestamp 1752183583
+transform 1 0 30 0 -1 -156
+box -30 -167 390 137
+use ha  ha_2
+timestamp 1752183583
+transform 1 0 30 0 1 -398
+box -30 -167 390 137
+use sky130_fd_sc_hd__dfrtp_1  sky130_fd_sc_hd__dfrtp_1_0
+timestamp 1752184986
+transform 1 0 -953 0 1 -5
+box -19 -24 939 296
+use sky130_fd_sc_hd__dfrtp_1  sky130_fd_sc_hd__dfrtp_1_1
+timestamp 1752184986
+transform 1 0 -953 0 -1 -5
+box -19 -24 939 296
+use sky130_fd_sc_hd__dfrtp_1  sky130_fd_sc_hd__dfrtp_1_2
+timestamp 1752184986
+transform 1 0 -953 0 1 -549
+box -19 -24 939 296
+use sky130_fd_sc_hd__tapvpwrvgnd_1  sky130_fd_sc_hd__tapvpwrvgnd_1_0
+timestamp 1752083776
+transform 1 0 -33 0 1 -5
+box -19 -24 65 296
+use sky130_fd_sc_hd__tapvpwrvgnd_1  sky130_fd_sc_hd__tapvpwrvgnd_1_1
+timestamp 1752083776
+transform 1 0 -33 0 -1 -5
+box -19 -24 65 296
+use sky130_fd_sc_hd__tapvpwrvgnd_1  sky130_fd_sc_hd__tapvpwrvgnd_1_2
+timestamp 1752083776
+transform 1 0 -33 0 1 -549
+box -19 -24 65 296
+<< labels >>
+flabel metal1 88 258 105 275 0 FreeSans 80 0 0 0 INC
+port 3 nsew signal input
+flabel metal2 275 152 301 178 0 FreeSans 80 0 0 0 A0
+port 4 nsew signal input
+flabel metal1 328 26 347 51 0 FreeSans 80 0 0 0 S0
+port 5 nsew signal output
+flabel metal2 275 -188 301 -162 0 FreeSans 80 0 0 0 A1
+port 6 nsew signal input
+flabel metal1 328 -236 347 -211 0 FreeSans 80 0 0 0 S1
+port 7 nsew signal output
+flabel metal2 275 -388 301 -362 0 FreeSans 80 0 0 0 A2
+port 8 nsew signal input
+flabel metal1 328 -514 347 -489 0 FreeSans 80 0 0 0 S2
+port 9 nsew signal output
+flabel metal4 -550 -577 -400 291 0 FreeSans 150 0 0 0 VGND
+port 2 nsew ground bidirectional abutment
+flabel metal4 -850 -577 -700 291 0 FreeSans 150 0 0 0 VPWR
+port 1 nsew power bidirectional abutment
+flabel metal3 -249 -471 -199 123 0 FreeSans 120 0 0 0 RESET_B
+port 10 nsew signal input
+flabel metal2 -944 -447 -910 165 0 FreeSans 120 0 0 0 CLK
+port 11 nsew signal input
+<< end >>
